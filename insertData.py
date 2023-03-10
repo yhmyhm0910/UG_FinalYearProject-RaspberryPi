@@ -1,6 +1,6 @@
-import pyodbc   #database usage
 import datetime
 import re
+import pyodbc   #database usage
 
 file = open('confidential.txt', 'r')    #database security
 secret = file.readlines()
@@ -50,6 +50,7 @@ def checkValidRTime(RTime, lastRDate, lastRTime):
             if toCheck[i] != '0' and toCheck[i] != '1' and toCheck[i] != '2' and toCheck[i] != '3' and toCheck[i] != '4' and toCheck[i] != '5' and toCheck[i] != '6' and toCheck[i] != '7' and toCheck[i] != '8' and toCheck[i] != '9':
                 return True
             else: return False
+
     isValid = [False, False, True, False]    #[Hour, Mins, all are numbers, Last Operation Time]
     RTime_str = str(RTime)
     if len(RTime_str) == 4:
@@ -195,8 +196,17 @@ writeToSQL(finalPMID, finalRDate, finalRTime, finalData)
 #-------------------------------------------------------------------------------------------------------------------------------
 
 
-#ALL FAULTS: "INSERT INTO Records (PMID, RDate, RTime, Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12, Data13, Data14, Data15, Data16, Data17, Data18, Data19, Data20, Data21, Data22, Data23, Data24, Data25, Data26, Data27, Data28, Data29, Data30, Data31, Data32, Data33, Data34) VALUES ((?), (?), (?), 0, 16, 12, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 6, 6, 6, 6, 6, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 1.50, 1.50, 1.50, 1.50,0,0,0,0)"
+#ALL FAULTS: 0, 16, 12, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 6, 6, 6, 6, 6, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 1.50, 1.50, 1.50, 1.50,0,0,0,0
 
-#Normal: "INSERT INTO Records (PMID, RDate, RTime, Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12, Data13, Data14, Data15, Data16, Data17, Data18, Data19, Data20, Data21, Data22, Data23, Data24, Data25, Data26, Data27, Data28, Data29, Data30, Data31, Data32, Data33, Data34) VALUES ((?), (?), (?), 0, 8, 8, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 2.10, 2.10, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 0, 0,0,0,0,0,0,0)"
+#Normal: 0, 8, 8, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 2.10, 2.10, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 0, 0,0,0,0,0,0,0
 
-#Fails to Start: "INSERT INTO Records (PMID, RDate, RTime, Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11, Data12, Data13, Data14, Data15, Data16, Data17, Data18, Data19, Data20, Data21, Data22, Data23, Data24, Data25, Data26, Data27, Data28, Data29, Data30, Data31, Data32, Data33, Data34) VALUES ((?), (?), (?), 0, 8, 32, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 2.10, 2.10, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 0, 0,0,0,0,0,0,0)"
+#Fails to Start: 0, 16, 16, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 2.10, 2.10, 2.20, 2.30, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 0, 0,0,0,0,0,0,0
+
+#Fails to Switch: 0, 8, 8, 7, 7, 7, 7, 6.8, 6.8, 6.8, 6, 6, 6, 6, 6, 6, 5, 2.40, 2.40, 2.40, 2.40, 2.40, 2.40, 1.50, 1.50, 1.50, 0, 0,0,0,0,0,0,0
+
+#Sticky Chair: 0, 12, 12, 7.2, 6.9, 6.72, 6.6, 6.51, 6.45, 6.4, 6.23, 6.10, 5.1, 5.1, 4.6, 4.7, 4.8, 4.9, 4.9, 4.9, 4.9, 4.9, 3.5, 3.5, 3.5, 3.5, 0, 0,0,0,0,0,0,0
+
+#Fails to Lock: 0, 8, 8, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 2.10, 2.60, 2.70, 2.80, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 2.90, 0
+
+#Encounters Obstructions: 0, 8, 8, 3.20, 2.90, 2.72, 2.60, 2.51, 2.45, 2.40, 2.23, 2.10, 2.10, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0
+
