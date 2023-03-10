@@ -9,7 +9,7 @@ server = secret[0].strip()  #Database connection is putted here as pages need to
 database = secret[1].strip()
 username = secret[2].strip()
 password = secret[3].strip()   
-driver= '{ODBC Driver 17 for SQL Server}'
+driver= '{ODBC Driver 18 for SQL Server}'
 Authentication='ActiveDirectoryPassword' #This is so very important, email format issue https://github.com/mkleehammer/pyodbc/issues/1008
 conn = pyodbc.connect(
     'AUTHENTICATION='+Authentication+
@@ -24,7 +24,7 @@ cursor = conn.cursor()
 
 def checkValidPMID(PMID):
     isValid = False
-    givenPMIDs = ['671A', '671B', '672', '673', '674A', '674B', '675A', '675B', '676']
+    givenPMIDs = ['671A', '672', '673', '674A', '675A', '676']
     for i in range(len(givenPMIDs)):
         if (PMID == givenPMIDs[i]):
             isValid = True
@@ -84,10 +84,10 @@ def inputPMID(lastPMID):
         isInputValidPMID = True
         return inputPMID
     while (isInputValidPMID == False):
-        print('Enter PMID: (Available PMID: 671A, 671B, 672, 673, 674A, 674B, 675A, 675B, 676)')
+        print('Enter PMID: (Available PMID: 671A, 672, 673, 674A, 675A, 676)')
         inputPMID = input()
         if (checkValidPMID(inputPMID) == False):
-            print('Invalid PMID (Available PMID: 671A, 671B, 672, 673, 674A, 674B, 675A, 675B, 676)')
+            print('Invalid PMID (Available PMID: 671A, 672, 673, 674A, 675A, 676)')
         else:
             isInputValidPMID = True
             return inputPMID
